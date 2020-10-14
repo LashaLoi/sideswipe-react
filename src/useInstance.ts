@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { InstanceResult } from "sideswipeloi";
 
-export const useInstance = instance => {
-  const [state, setState] = useState(instance.getState);
+export function useInstance<T = unknown>(instance: InstanceResult<T>) {
+  const [state, setState] = useState<T>(instance.getState);
 
   useEffect(() => {
     const unsubscribe = instance.subscribe(() => setState(instance.getState));
@@ -11,4 +12,4 @@ export const useInstance = instance => {
   }, []);
 
   return state;
-};
+}
